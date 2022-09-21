@@ -3,7 +3,7 @@
 # my first real script for lab 1
 
 # this shows the fully qualified domain name
-echo "FDQN:"
+echo "FQDN:"
 hostname 
 
 # this is the OS and version
