@@ -1,21 +1,36 @@
 #!/bin/bash
 
-# my first real script for lab 1
+#gather the data for my report
+source /etc/os-release
 
-# this shows the fully qualified domain name
-echo "FQDN:"
-hostname 
+#define some variables for my report
 
-# this is the OS and version
-echo "Host Info:"
-hostnamectl
+#this is the hostname variable
+HostName=$(hostname)
 
-# any IP addresses that are not on the 127 network
-echo "IP Addresses:"
-hostname -I
+#this is the OS name and version variables
+OsName=$NAME
+OsVersion=$VERSION
 
-# the amount of space available in only the root filesystem
-echo "Root Filesystem Status:"
-df -h /dev/sda3
+#this is the IP address variable
+IpAddress=$(hostname -I)
 
-exit
+#this is the freespace variable
+FreeSpace=$(df -h | grep -w "/" | awk '{print $4}')
+
+#print out the report using the data
+
+cat <<EOF
+
+ 
+Report for $HostName
+==========
+
+FQDN: $HostName 
+OS name and version: $OsName $OsVersion
+IP Address: $IpAddress
+Root Filesystem Free Space: $FreeSpace
+
+==========
+
+EOF
