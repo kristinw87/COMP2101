@@ -1,36 +1,35 @@
 #!/bin/bash
 
-#gather the data for my report
+#source the data for my report
 source /etc/os-release
 
-#define some variables for my report
+#define hostname/os name/os version/IP address/free space variables. use the info found in the /etc/os-release file to define the distro name and version variables
 
-#this is the hostname variable
-HostName=$(hostname)
+Host=$(hostname)
+Distro_Name=$NAME
+Distro_Version=$VERSION
 
-#this is the OS name and version variables
-OsName=$NAME
-OsVersion=$VERSION
+#use ip route to see what the default route is to the internet, use grep to search for the line containing the word "default", use awk to print out the 3rd line of data
 
-#this is the IP address variable
-IpAddress=$(hostname -I)
+IP_Address=$(ip route | grep -w "default" | awk '{print $3}')
 
-#this is the freespace variable
-FreeSpace=$(df -h | grep -w "/" | awk '{print $4}')
+#check disk usage, use grep to search for the line containing only "/" (root), then use awk to print the 4th line of data (which is available space)
+
+Free_Space=$(df -h | grep -w "/" | awk '{print $4}')
 
 #print out the report using the data
 
 cat <<EOF
 
  
-Report for $HostName
-==========
+Report for $Host
+~~~~~~~~~~
 
-FQDN: $HostName 
-OS name and version: $OsName $OsVersion
-IP Address: $IpAddress
-Root Filesystem Free Space: $FreeSpace
+FQDN: $Host 
+Distro name and version: $NAME $VERSION
+IP Address: $IP_Address
+Root Filesystem Free Space: $Free_Space
 
-==========
+~~~~~~~~~~
 
 EOF
