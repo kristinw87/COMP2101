@@ -26,7 +26,7 @@ Report for $Host
 ~~~~~~~~~~
 
 FQDN: $Host 
-Distro name and version: $NAME $VERSION
+Distro name and version: $Distro_Name $Distro_Version
 IP Address: $IP_Address
 Root Filesystem Free Space: $Free_Space
 
